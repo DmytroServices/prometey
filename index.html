@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>All4Family - Everything for Your Family</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    /* Минимальный CSS для красоты и адаптивности */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0; padding: 0;
+      background: #f9f9f9;
+      color: #333;
+    }
+    header {
+      background: #007acc;
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    header .logo {
+      font-weight: bold;
+      font-size: 1.5em;
+    }
+    nav a {
+      color: white;
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    .btn-login {
+      background: white;
+      color: #007acc;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .hero {
+      text-align: center;
+      padding: 40px 20px 60px;
+      background: white;
+    }
+    .hero h1 {
+      margin-bottom: 10px;
+      font-size: 2.4em;
+      color: #007acc;
+    }
+    .hero p {
+      font-size: 1.1em;
+      max-width: 600px;
+      margin: 0 auto 40px;
+      color: #555;
+    }
+    .main-blocks {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+    .block {
+      background: #e3f2fd;
+      border-radius: 10px;
+      padding: 20px;
+      flex: 1 1 220px;
+      max-width: 250px;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgb(0 0 0 / 0.1);
+      transition: background-color 0.3s ease;
+    }
+    .block:hover {
+      background: #bbdefb;
+    }
+    .block h2 {
+      margin-top: 0;
+      font-size: 1.3em;
+    }
+    section.services {
+      max-width: 900px;
+      margin: 0 auto 50px;
+      padding: 20px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgb(0 0 0 / 0.1);
+    }
+    .service-section {
+      margin-bottom: 30px;
+    }
+    .service-section h2 {
+      color: #007acc;
+      border-bottom: 2px solid #007acc;
+      padding-bottom: 8px;
+    }
+    .accordion-btn {
+      width: 100%;
+      text-align: left;
+      background: #e1f5fe;
+      border: none;
+      padding: 12px;
+      font-size: 1em;
+      cursor: pointer;
+      border-radius: 6px;
+      margin-top: 10px;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+    .accordion-btn:hover {
+      background: #b3e5fc;
+    }
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      background: #f0faff;
+      padding: 0 15px;
+      border-radius: 0 0 6px 6px;
+    }
+    .accordion-content.open {
+      padding: 15px;
+      max-height: 600px;
+    }
+    form {
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+    }
+    input, select, textarea {
+      margin: 8px 0;
+      padding: 10px;
+      font-size: 1em;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      resize: vertical;
+      font-family: inherit;
+    }
+    button[type="submit"] {
+      background: #007acc;
+      color: white;
+      border: none;
+      padding: 12px;
+      font-weight: 700;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button[type="submit"]:hover {
+      background: #005fa3;
+    }
+    .reviews, .promotions, .contact {
+      max-width: 900px;
+      margin: 0 auto 50px;
+      padding: 20px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgb(0 0 0 / 0.1);
+    }
+    .reviews h2, .promotions h2, .contact h2 {
+      color: #007acc;
+      margin-bottom: 15px;
+    }
+    blockquote {
+      border-left: 4px solid #007acc;
+      padding-left: 15px;
+      color: #555;
+      margin: 10px 0;
+      font-style: italic;
+    }
+    footer {
+      background: #007acc;
+      color: white;
+      text-align: center;
+      padding: 15px 10px;
+      font-size: 0.9em;
+    }
+
+    /* Адаптивность */
+    @media (max-width: 700px) {
+      .main-blocks {
+        flex-direction: column;
+        max-width: 300px;
+        margin: 0 auto;
+      }
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">All4Family</div>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#services">Services</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <button class="btn-login">Log In / Register</button>
+</header>
+
+<section id="home" class="hero">
+  <h1>Welcome to All4Family</h1>
+  <p>A platform uniting cleaning, moving, and education services for your family.</p>
+
+  <div class="main-blocks">
+    <div class="block" data-target="cleaning">
+      <h2>🧹 Cleaning</h2>
+      <p>Deep, regular, post-renovation, window cleaning, and more.</p>
+    </div>
+    <div class="block" data-target="moving">
+      <h2>🚚 Moving</h2>
+      <p>Relocation, delivery, office moving, furniture transport.</p>
+    </div>
+    <div class="block" data-target="education">
+      <h2>📚 Education</h2>
+      <p>Private lessons, group classes, language courses.</p>
+    </div>
+  </div>
+</section>
+
+<section id="services" class="services">
+
+  <!-- Cleaning -->
+  <div class="service-section" id="cleaning">
+    <h2>Cleaning</h2>
+    <button class="accordion-btn">Types of Cleaning</button>
+    <div class="accordion-content">
+      <ul>
+        <li>Deep Cleaning</li>
+        <li>Regular Cleaning</li>
+        <li>Post-Renovation Cleaning</li>
+        <li>Window Cleaning</li>
+        <li>And More</li>
+      </ul>
+    </div>
+
+    <button class="accordion-btn">Booking Form</button>
+    <div class="accordion-content">
+      <form id="cleaning-form">
+        <input type="text" name="name" placeholder="Your Name" required />
+        <input type="email" name="email" placeholder="Email" required />
+        <input type="tel" name="phone" placeholder="Phone" required />
+        <textarea name="details" placeholder="Additional Details" rows="3"></textarea>
+        <button type="submit">Submit Booking</button>
+      </form>
+    </div>
+
+    <button class="accordion-btn">About Us</button>
+    <div class="accordion-content">
+      <p>Verified specialists and quality guarantee.</p>
+    </div>
+
+    <button class="accordion-btn">FAQ</button>
+    <div class="accordion-content">
+      <p><b>Q:</b> How long does deep cleaning take?<br/>
+         <b>A:</b> Usually 3-5 hours depending on space size.</p>
+      <p><b>Q:</b> Do you use eco-friendly products?<br/>
+         <b>A:</b> Yes, on request.</p>
+    </div>
+  </div>
+
+  <!-- Moving -->
+  <div class="service-section" id="moving">
+    <h2>Moving</h2>
+    <button class="accordion-btn">Service Types</button>
+    <div class="accordion-content">
+      <ul>
+        <li>Relocation</li>
+        <li>Delivery</li>
+        <li>Furniture Transport</li>
+        <li>Office Moving</li>
+      </ul>
+    </div>
+
+    <button class="accordion-btn">Order Form</button>
+    <div class="accordion-content">
+      <form id="moving-form">
+        <input type="text" name="name" placeholder="Your Name" required />
+        <input type="email" name="email" placeholder="Email" required />
+        <input type="tel" name="phone" placeholder="Phone" required />
+        <label>Floor:</label>
+        <input type="number" name="floor" min="0" max="50" placeholder="Floor" required />
+        <label>Elevator Available:</label>
+        <select name="elevator" required>
+          <option value="">Select</option>
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+        </select>
+        <label>Packing Needed:</label>
+        <select name="packing" required>
+          <option value="">Select</option>
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+        </select>
+        <textarea name="details" placeholder="Additional Details" rows="3"></textarea>
+        <button type="submit">Submit Order</button>
+      </form>
+    </div>
+
+    <button class="accordion-btn">Moving Tips</button>
+    <div class="accordion-content">
+      <ul>
+        <li>Plan ahead</li>
+        <li>Sort items by category</li>
+        <li>Label boxes</li>
+        <li>Book services early</li>
+      </ul>
+    </div>
+
+    <button class="accordion-btn">FAQ</button>
+    <div class="accordion-content">
+      <p><b>Q:</b> How is cost calculated?<br/>
+         <b>A:</b> Based on volume and distance; please fill order form.</p>
+      <p><b>Q:</b> Can I order furniture transport only?<br/>
+         <b>A:</b> Yes, it's a separate service.</p>
+    </div>
+  </div>
+
+  <!-- Education -->
+  <div class="service-section" id="education">
+    <h2>Education</h2>
+    <button class="accordion-btn">Private Lessons</button>
+    <div class="accordion-content">
+      <p>Math, Science, and other subjects for different ages.</p>
+    </div>
+
+    <button class="accordion-btn">Group Classes</button>
+    <div class="accordion-content">
+      <p>Math, Science, Drawing — groups up to 10 people.</p>
+    </div>
+
+    <button class="accordion-btn">Language Courses</button>
+    <div class="accordion-content">
+      <ul>
+        <li>Ukrainian</li>
+        <li>English</li>
+        <li>French</li>
+        <li>Polish</li>
+      </ul>
+    </div>
+
+    <button class="accordion-btn">Online Booking</button>
+    <div class="accordion-content">
+      <form id="education-form">
+        <input type="text" name="name" placeholder="Your Name" required />
+        <input type="email" name="email" placeholder="Email" required />
+        <input type="tel" name="phone" placeholder="Phone" required />
+        <select name="course" required>
+          <option value="">Select Course</option>
+          <option value="math">Math</option>
+          <option value="science">Science</option>
+          <option value="drawing">Drawing</option>
+          <option value="ukrainian">Ukrainian</option>
+          <option value="english">English</option>
+          <option value="french">French</option>
+          <option value="polish">Polish</option>
+        </select>
+        <button type="submit">Book Now</button>
+      </form>
+    </div>
+
+    <button class="accordion-btn">Materials for Students</button>
+    <div class="accordion-content">
+      <p>Free lessons and materials for self-study.</p>
+    </div>
+
+    <button class="accordion-btn">FAQ</button>
+    <div class="accordion-content">
+      <p><b>Q:</b> Can I change courses?<br/>
+         <b>A:</b> Yes, with teacher’s approval.</p>
+      <p><b>Q:</b> Are trial lessons available?<br/>
+         <b>A:</b> Yes, first lessons are free.</p>
+    </div>
+  </div>
+
+</section>
+
+<section id="reviews" class="reviews">
+  <h2>Customer Reviews</h2>
+  <blockquote>“Excellent service, fast and reliable!” — Maria</blockquote>
+  <blockquote>“They really helped with my move, highly recommend!” — Ivan</blockquote>
+  <blockquote>“Friendly teachers and convenient schedule.” — Olga</blockquote>
+</section>
+
+<section id="promotions" class="promotions">
+  <h2>Promotions & News</h2>
+  <ul>
+    <li>10% discount on cleaning for new customers</li>
+    <li>Spring moving promotion until the end of March</li>
+    <li>Book courses and get a free trial lesson</li>
+  </ul>
+</section>
+
+<section id="contact" class="contact">
+  <h2>Contact Us</h2>
+  <form id="contact-form">
+    <input type="text" name="name" placeholder="Your Name" required />
+    <input type="email" name="email" placeholder="Email" required />
+    <textarea name="message" placeholder="Your Message" required></textarea>
+    <button type="submit">Send</button>
+  </form>
+</section>
+
+<footer>
+  <p>© 2026 All4Family</p>
+</footer>
+
+<script>
+  // Аккордеон
+  const accButtons = document.querySelectorAll('.accordion-btn');
+  accButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const content = btn.nextElementSibling;
+      content.classList.toggle('open');
+    });
+  });
+
+  // Скролл по клику на блоки главной страницы
+  const mainBlocks = document.querySelectorAll('.main-blocks .block');
+  mainBlocks.forEach(block => {
+    block.addEventListener('click', () => {
+      const targetId = block.getAttribute('data-target');
+      document.getElementById(targetId).scrollIntoView({behavior: 'smooth'});
+    });
+  });
+
+  // Телеграм интеграция — замени YOUR_BOT_TOKEN и YOUR_CHAT_ID
+  const TELEGRAM_BOT_TOKEN = '8281832721:AAEISp2cKt09n9A_bJDwa7x5q38hbhXCaQI';
+  const TELEGRAM_CHAT_ID = '7852703942';
+
+  // Универсальная функция отправки сообщений в Telegram
+  async function sendTelegramMessage(text) {
+    const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({chat_id: TELEGRAM_CHAT_ID, text: text})
+      });
+      const data = await response.json();
+      return data.ok;
+    } catch {
+      return false;
+    }
+  }
+
+  // Отправка формы обратной связи
+  const contactForm = document.getElementById('contact-form');
+  contactForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const name = contactForm.name.value.trim();
+    const email = contactForm.email.value.trim();
+    const message = contactForm.message.value.trim();
+    if (!name || !email || !message) {
+      alert('Please fill all fields');
+      return;
+    }
+    const text = `New contact form submission:\nName: ${name}\nEmail: ${email}\nMessage: ${message}`;
+    const success = await sendTelegramMessage(text);
+    if (success) {
+      alert('Message sent! Thank you!');
+      contactForm.reset();
+    } else {
+      alert('Failed to send message. Please try later.');
+    }
+  });
+
+  // Отправка формы бронирования уборки
+  const cleaningForm = document.getElementById('cleaning-form');
+  cleaningForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const name = cleaningForm.name.value.trim();
+    const email = cleaningForm.email.value.trim();
+    const phone = cleaningForm.phone.value.trim();
+    const details = cleaningForm.details.value.trim();
+    if (!name || !email || !phone) {
+      alert('Please fill all required fields');
+      return;
+    }
+    const text = `New cleaning booking:\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\
