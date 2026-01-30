@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -438,57 +438,79 @@
     });
   });
 
-  // Телеграм интеграция — замени YOUR_BOT_TOKEN и YOUR_CHAT_ID
-  const TELEGRAM_BOT_TOKEN = 'TELEGTAMTOKEN';
-  const TELEGRAM_CHAT_ID = 'IDNAME';
+  // === Telegram интеграция ===
+  // Замените на реальные токен и chat_id
+  const TELEGRAM_BOT_TOKEN = 'ТВОЙ_РЕАЛЬНЫЙ_ТОКЕН_ОТ_BOTFATHER';
+  const TELEGRAM_CHAT_ID = 'TELEGTAMTOKEN';
 
-  // Универсальная функция отправки сообщений в Telegram
   async function sendTelegramMessage(text) {
     const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
     try {
       const response = await fetch(url, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({chat_id: TELEGRAM_CHAT_ID, text: text})
+        body: JSON.stringify({
+          chat_id: TELEGRAM_CHAT_ID,
+          text: text,
+          parse_mode: 'HTML'  // Для удобного форматирования
+        }),
       });
       const data = await response.json();
+      if (!data.ok) {
+        console.error('Telegram API error:', data);
+      }
       return data.ok;
-    } catch {
+    } catch (error) {
+      console.error('Fetch error:', error);
       return false;
     }
   }
 
-  // Отправка формы обратной связи
-  const contactForm = document.getElementById('contact-form');
-  contactForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const name = contactForm.name.value.trim();
-    const email = contactForm.email.value.trim();
-    const message = contactForm.message.value.trim();
-    if (!name || !email || !message) {
-      alert('Please fill all fields');
-      return;
-    }
-    const text = `New contact form submission:\nName: ${name}\nEmail: ${email}\nMessage: ${message}`;
-    const success = await sendTelegramMessage(text);
-    if (success) {
-      alert('Message sent! Thank you!');
-      contactForm.reset();
-    } else {
-      alert('Failed to send message. Please try later.');
-    }
+  // Универсальная функция для обработки форм с отправкой в Telegram
+  function setupFormTelegram(formId, formatTextCallback) {
+    const form = document.getElementById(formId);
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const btn = form.querySelector('button[type="submit"]');
+      btn.disabled = true;
+
+      // Валидация: проверка, что все required поля заполнены
+      const requiredFields = form.querySelectorAll('[required]');
+      for (const field of requiredFields) {
+        if (!field.value.trim()) {
+          alert('Please fill all required fields');
+          btn.disabled = false;
+          return;
+        }
+      }
+
+      // Формируем текст для Telegram по функции коллбеку
+      const text = formatTextCallback(form);
+
+      const success = await sendTelegramMessage(text);
+      if (success) {
+        alert('Message sent! Thank you!');
+        form.reset();
+      } else {
+        alert('Failed to send message. Please try later.');
+      }
+
+      btn.disabled = false;
+    });
+  }
+
+  // Подключаем формы:
+
+  // Contact form
+  setupFormTelegram('contact-form', (form) => {
+    const name = form.name.value.trim();
+    const email = form.email.value.trim();
+    const message = form.message.value.trim();
+    return `<b>New contact form submission:</b>\nName: ${name}\nEmail: ${email}\nMessage: ${message}`;
   });
 
-  // Отправка формы бронирования уборки
-  const cleaningForm = document.getElementById('cleaning-form');
-  cleaningForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const name = cleaningForm.name.value.trim();
-    const email = cleaningForm.email.value.trim();
-    const phone = cleaningForm.phone.value.trim();
-    const details = cleaningForm.details.value.trim();
-    if (!name || !email || !phone) {
-      alert('Please fill all required fields');
-      return;
-    }
-    const text = `New cleaning booking:\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\
+  // Cleaning form
+  setupFormTelegram('cleaning-form', (form) => {
+    const name = form.name.value.trim();
+    const email =
